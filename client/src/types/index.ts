@@ -17,6 +17,7 @@ export interface AuthContextState {
   signIn: Function;
   signOut: Function;
   user: User | null | undefined;
+  isLoading: boolean;
 }
 
 export type PrivateRouteProps = {

@@ -9,19 +9,21 @@ const PrivateRoute = ({
   children,
 }: PrivateRouteProps) => {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
   const pathIsProtectedRoute = protectedRoutes?.indexOf(router.pathname) !== -1;
   const pathIsAuthRoute = authRoutes?.indexOf(router.pathname) !== -1;
 
   useEffect(() => {
-    if (!user && pathIsProtectedRoute) {
+    if (!isLoading && !user && pathIsProtectedRoute) {
       router.push("/");
     }
-    if (user && pathIsAuthRoute) {
+    if (!isLoading && user && pathIsAuthRoute) {
       router.push("/dashboard");
     }
-  }, [user, pathIsProtectedRoute]);
+  }, [isLoading, user, pathIsProtectedRoute]);
+
+  if ((isLoading || !user) && pathIsProtectedRoute) return <>Loading...</>;
 
   return <Fragment>{children}</Fragment>;
 };

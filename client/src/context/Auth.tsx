@@ -18,20 +18,21 @@ type Props = {
 
 export const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<AuthContextState["user"]>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] =
+    useState<AuthContextState["isLoading"]>(true);
 
   useEffect(() => {
     // Check active sessions and sets the user
     const session = supabase.auth.session();
 
     setUser(session?.user ?? null);
-    setLoading(false);
+    setIsLoading(false);
 
     // Listen for auth state changes (sign in, log out)
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
-        setLoading(false);
+        setIsLoading(false);
       }
     );
 
@@ -41,15 +42,16 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   }, []);
 
   // Passed down to pages
-  const value = {
+  const value: AuthContextState = {
     signIn: (data: UserCredentials) => supabase.auth.signIn(data),
     signOut: () => supabase.auth.signOut(),
     user,
+    isLoading,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };
