@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
 import type { NextPage } from "next";
-import { Profile, Props } from "./types";
+import { Profile, AccountProps } from "../types";
 
-const Account: NextPage<Props> = ({ session }) => {
+const Account: NextPage<AccountProps> = ({ session }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [username, setUsername] = useState<string | null>(null);
   const [website, setWebsite] = useState<string | null>(null);
