@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
+import Image from "next/image";
+import logo from "../../../public/logo.png";
+import DashboardLayout from "../../components/DashboardLayout";
+import PortfolioHighlights from "../../components/PortfolioHighlights";
 
 const Dashboard: NextPage = () => {
   return (
-    <div className="p-12 bg-gradient-to-r from-gray-800 via-gray-900 to-black rounded-lg grid justify-items-center">
-      <p>Dashboard</p>
-    </div>
+    <DashboardLayout>
+      <PortfolioHighlights />
+    </DashboardLayout>
   );
 };
 
