@@ -25,3 +25,7 @@ export type PrivateRouteProps = {
   authRoutes?: Array<string>;
   children?: ReactNode;
 };
+
+export type ChildrenProps = {
+  children?: ReactNode;
+};

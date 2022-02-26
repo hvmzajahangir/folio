@@ -18,11 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gradient-to-r from-black to-gray-900 flex items-center justify-center min-h-screen text-white">
-        <PrivateRoute protectedRoutes={protectedRoutes} authRoutes={authRoutes}>
-          <Component {...pageProps} />
-        </PrivateRoute>
-      </div>
+      <PrivateRoute protectedRoutes={protectedRoutes} authRoutes={authRoutes}>
+        <Component {...pageProps} />
+      </PrivateRoute>
     </AuthProvider>
   );
 }
