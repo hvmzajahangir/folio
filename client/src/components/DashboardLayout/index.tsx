@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { ChildrenProps } from "../../types";
-import Sidebar from "../Sidebar";
-import MainContainer from "../MainContainer";
+import Sidebar from "./Sidebar";
+import MainContainer from "./MainContainer";
 
 const DashboardLayout = ({ children }: ChildrenProps): ReactElement => {
   return (
