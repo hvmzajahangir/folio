@@ -1,13 +1,21 @@
 import { ReactElement } from "react";
 import { SearchResultTileProps } from "../../../types";
+import { useRouter } from "next/router";
 
 export default function SearchResultTile({
   result,
 }: SearchResultTileProps): ReactElement {
+  const router = useRouter();
+  const handleOnClick = (symbol: string) => {
+    router.push({
+      pathname: "/asset",
+      query: { symbol },
+    });
+  };
   return (
     <div
       className="flex items-center gap-4 p-4 cursor-pointer"
-      onClick={() => console.log("hello")}
+      onClick={() => handleOnClick(result["1. symbol"])}
     >
       <img
         className="w-12 h-12 rounded-full"

@@ -5,7 +5,7 @@ import { useAppSelector } from "../../hooks/rtk";
 import { useSearchSymbolQuery } from "../../services/alphaVantage";
 import { selectSearchTerms } from "../../slices/searchSlice";
 
-const Dashboard: NextPage = () => {
+const Search: NextPage = () => {
   const searchTerms = useAppSelector(selectSearchTerms);
   const { data, error, isLoading } = useSearchSymbolQuery(searchTerms);
   return (
@@ -15,4 +15,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default Search;

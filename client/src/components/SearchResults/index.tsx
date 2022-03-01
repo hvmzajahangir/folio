@@ -17,7 +17,6 @@ export default function SearchResults({
         {/* Display individual result tiles if response array is not empty */}
         {results?.bestMatches.length
           ? results.bestMatches.map((result) => {
-              console.log(result);
               return (
                 <SearchResultTile result={result} key={result["1. symbol"]} />
               );
