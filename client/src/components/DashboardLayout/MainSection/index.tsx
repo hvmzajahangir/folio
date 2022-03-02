@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { ChildrenProps } from "../../types";
+import { ChildrenProps } from "../../../types";
 
 const MainSection = ({ children }: ChildrenProps): ReactElement => {
   return (
