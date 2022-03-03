@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { coingeckoApi } from "./services/coingecko";
+import { folioApi } from "./services/folio";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import searchReducer from "./slices/searchSlice";
 
@@ -9,10 +10,11 @@ export const store = configureStore({
     search: searchReducer,
     // Services
     [coingeckoApi.reducerPath]: coingeckoApi.reducer,
+    [folioApi.reducerPath]: folioApi.reducer,
   },
   // Enable caching, invalidation, polling and other rtk-query features
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(coingeckoApi.middleware),
+    getDefaultMiddleware().concat(coingeckoApi.middleware, folioApi.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

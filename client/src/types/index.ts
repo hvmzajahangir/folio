@@ -75,4 +75,19 @@ export interface AssetOverviewProps {
 
 export interface AssetTileProps {
   type: string;
+  data: WatchlistItem;
+}
+
+// NEXT API Controllers
+export interface WatchlistItem {
+  id?: number;
+  user_id: string;
+  token_id: string;
+  created_at?: Date;
+}
+
+// Folio API
+export interface WatchlistResponse {
+  status: string;
+  result: WatchlistItem | [WatchlistItem] | null;
 }
