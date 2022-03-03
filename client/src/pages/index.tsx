@@ -3,7 +3,7 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
 import Image from "next/image";
-import logo from "../../public/logo.png";
+import logo from "../../public/image/logo.png";
 
 const Home: NextPage = () => {
   const router = useRouter();

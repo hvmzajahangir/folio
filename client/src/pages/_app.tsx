@@ -8,7 +8,12 @@ import { Provider } from "react-redux";
 import { store } from "../store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const protectedRoutes: Array<string> = ["/dashboard"];
+  const protectedRoutes: Array<string> = [
+    "/dashboard",
+    "/asset",
+    "/search",
+    "/watchlist",
+  ];
   const authRoutes: Array<string> = ["/"];
   return (
     <AuthProvider>
