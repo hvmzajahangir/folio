@@ -1,6 +1,11 @@
 import { ReactElement } from "react";
+import { useRouter } from "next/router";
 
 const Sidebar = (): ReactElement => {
+  const router = useRouter();
+  const pushToRoute = (route: string) => {
+    router.push(route);
+  };
   return (
     <aside className="z-20 hidden w-64 overflow-y-auto bg-gradient-to-r from-gray-800 via-gray-900 to-black md:block flex-shrink-0">
       <div className="py-4 text-gray-500 dark:text-gray-400">
@@ -11,15 +16,17 @@ const Sidebar = (): ReactElement => {
           Folio
         </a>
         <ul className="mt-6">
-          <li className="relative px-6 py-3">
+          <li
+            className="relative px-6 py-3 cursor-pointer"
+            onClick={() => {
+              pushToRoute("/dashboard");
+            }}
+          >
             <span
               className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"
             ></span>
-            <a
-              className="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="/dashboard"
-            >
+            <a className="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -45,11 +52,13 @@ const Sidebar = (): ReactElement => {
           </li>
         </ul>
         <ul>
-          <li className="relative px-6 py-3">
-            <a
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="/watchlist"
-            >
+          <li
+            className="relative px-6 py-3 cursor-pointer"
+            onClick={() => {
+              pushToRoute("/watchlist");
+            }}
+          >
+            <a className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
