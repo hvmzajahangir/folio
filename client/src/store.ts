@@ -1,7 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import searchReducer from './slices/searchSlice';
-import { useDispatch } from "react-redux";
-import { alphaVantageApi } from "./services/alphaVantage";
+import { coingeckoApi } from "./services/coingecko";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import searchReducer from "./slices/searchSlice";
 
@@ -10,11 +8,11 @@ export const store = configureStore({
     // State
     search: searchReducer,
     // Services
-    [alphaVantageApi.reducerPath]: alphaVantageApi.reducer,
+    [coingeckoApi.reducerPath]: coingeckoApi.reducer,
   },
   // Enable caching, invalidation, polling and other rtk-query features
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(alphaVantageApi.middleware),
+    getDefaultMiddleware().concat(coingeckoApi.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

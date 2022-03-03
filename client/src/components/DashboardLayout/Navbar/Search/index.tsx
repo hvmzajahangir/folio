@@ -7,14 +7,25 @@ const Search = (): ReactElement => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [searchTerms, setSearchTerms] = useState<string>("");
+  const [searchPlaceholder, setSearchPlaceholder] =
+    useState<string>("Search token");
   const handleOnChange = (e: FormEvent<HTMLInputElement>): void => {
     setSearchTerms(e.currentTarget.value);
   };
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(setSliceSearchTerms(searchTerms));
-    setSearchTerms("");
-    router.push("/search");
+    // Search term must be at least two characters and contain alphabetical characters
+    if (searchTerms.length > 1 && !Number(searchTerms)) {
+      dispatch(setSliceSearchTerms(searchTerms));
+      setSearchTerms("");
+      setSearchPlaceholder("Search token");
+      router.push("/search");
+    } else {
+      setSearchTerms("");
+      setSearchPlaceholder(
+        "Please enter at a valid term (min 2 characters, non-numeric)"
+      );
+    }
   };
   return (
     <div className="flex justify-center flex-1 lg:mr-32">
@@ -40,7 +51,7 @@ const Search = (): ReactElement => {
         <input
           className="w-full pl-8 pr-2 rounded bg-gray-500 hover:bg-gray-400 placeholder-slate-200 text-slate-200 form-input"
           type="text"
-          placeholder="Search symbol"
+          placeholder={searchPlaceholder}
           aria-label="Search"
           value={searchTerms}
           onChange={handleOnChange}

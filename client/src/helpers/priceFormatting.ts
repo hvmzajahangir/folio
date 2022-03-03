@@ -5,9 +5,9 @@ export function formatNumberDigits(
   return Number(numberStr).toFixed(digits);
 }
 
-export function formatChangePercentDigits(
-  changePercentStr: string,
+export function formatPercentChangeDigits(
+  percentChange: number,
   digits: number
-): string {
-  return Number(changePercentStr.slice(0, -1)).toFixed(digits);
+): number {
+  return +percentChange.toFixed(digits);
 }

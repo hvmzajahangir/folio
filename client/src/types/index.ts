@@ -32,86 +32,47 @@ export interface ChildrenProps {
 export interface SearchState {
   searchTerms: string;
 }
-export interface Result {
-  "1. symbol": string;
-  "2. name": string;
-  "3. type": string;
-  "4. region": string;
-  "5. marketOpen": string;
-  "6. marketClose": string;
-  "7. timezone": string;
-  "8. currency": string;
-  "9. matchScore": string;
+
+// Coingecko API
+export interface SearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
 }
-export interface SearchResultsProps {
-  results: {
-    bestMatches: [Result];
+
+export interface TokenData {
+  id: string;
+  symbol: string;
+  name: string;
+  description: {
+    [key: string]: string;
   };
+  image: {
+    thumb: string;
+    small: string;
+    large: string;
+  };
+  market_cap_rank: number;
+  market_data: any;
+  last_updated: string;
 }
+
+// Search
+export interface SearchResultsProps {
+  results: [SearchResult] | undefined;
+}
+
 export interface SearchResultTileProps {
-  result: Result;
+  result: SearchResult;
 }
 
 export interface AssetOverviewProps {
-  "50DayMovingAverage": string;
-  "52WeekHigh": string;
-  "52WeekLow": string;
-  "200DayMovingAverage": string;
-  Address: string;
-  AnalystTargetPrice: string;
-  AssetType: string;
-  Beta: string;
-  BookValue: string;
-  CIK: string;
-  Country: string;
-  Currency: string;
-  Description: string;
-  DilutedEPSTTM: string;
-  DividendDate: string;
-  DividendPerShare: string;
-  DividendYield: string;
-  EBITDA: string;
-  EPS: string;
-  EVToEBITDA: string;
-  EVToRevenue: string;
-  ExDividendDate: string;
-  Exchange: string;
-  FiscalYearEnd: string;
-  ForwardPE: string;
-  GrossProfitTTM: string;
-  Industry: string;
-  LatestQuarter: string;
-  MarketCapitalization: string;
-  Name: string;
-  OperatingMarginTTM: string;
-  PEGRatio: string;
-  PERatio: string;
-  PriceToBookRatio: string;
-  PriceToSalesRatioTTM: string;
-  ProfitMargin: string;
-  QuarterlyEarningsGrowthYOY: string;
-  QuarterlyRevenueGrowthYOY: string;
-  ReturnOnAssetsTTM: string;
-  ReturnOnEquityTTM: string;
-  RevenuePerShareTTM: string;
-  RevenueTTM: string;
-  Sector: string;
-  SharesOutstanding: string;
-  Symbol: string;
-  TrailingPE: string;
+  data: TokenData | undefined;
 }
 
-export interface AssetQuote {
-  ["Global Quote"]: {
-    "1. symbol": string;
-    "2. open": string;
-    "3. high": string;
-    "4. low": string;
-    "5. price": string;
-    "6. volume": string;
-    "7. latest trading day": string;
-    "8. previous close": string;
-    "9. change": string;
-    "10. change percent": string;
-  };
+export interface AssetTileProps {
+  type: string;
 }
