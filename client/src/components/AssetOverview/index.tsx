@@ -7,7 +7,7 @@ import {
 
 const AssetOverview = ({ data }: AssetOverviewProps): ReactElement => {
   return data ? (
-    <>
+    <div className="container">
       <div className="shadow-lg my-6 px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
         <div className="flex flex-row justify-between">
           <div>
@@ -51,7 +51,7 @@ const AssetOverview = ({ data }: AssetOverviewProps): ReactElement => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   ) : (
     <p className="my-6">
       Ooops, cannot find information on this assetOverview...
