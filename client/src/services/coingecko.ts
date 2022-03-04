@@ -1,9 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SearchResult, TokenData } from "../types";
+import {
+  SearchResult,
+  TokenData,
+  TokenPrices,
+  BatchedTokenData,
+} from "../types";
 
 const API_BASE_URL: string =
   process.env.NEXT_PUBLIC_COINGECKO_API_BASE_URL || "";
-console.log(API_BASE_URL);
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -33,7 +37,49 @@ export const coingeckoApi = createApi({
         return transformedResponse;
       },
     }),
+    getPrices: builder.query<TokenPrices, string[]>({
+      query: (tokenIds) =>
+        `/simple/price?ids=${tokenIds.join(
+          "%2C"
+        )}&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=true&include_last_updated_at=true`,
+    }),
+    getBatchedTokenData: builder.query<BatchedTokenData, string[]>({
+      query: (tokenIds) =>
+        `/coins/markets?vs_currency=usd&ids=${tokenIds.join(
+          "%2C"
+        )}&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h`,
+      transformResponse: (response: any) => {
+        const transformedResponse: BatchedTokenData = {};
+        for (const tokenObject of response) {
+          const {
+            id,
+            symbol,
+            name,
+            image,
+            current_price,
+            price_change_percentage_24h,
+            last_updated,
+          } = tokenObject;
+          transformedResponse[id] = {
+            id,
+            symbol,
+            name,
+            image,
+            currentPrice: current_price,
+            priceChangePercentage24h: price_change_percentage_24h,
+            lastUpdated: last_updated,
+          };
+        }
+
+        return transformedResponse;
+      },
+    }),
   }),
 });
 
-export const { useSearchTokenQuery, useGetTokenDataQuery } = coingeckoApi;
+export const {
+  useSearchTokenQuery,
+  useGetTokenDataQuery,
+  useGetPricesQuery,
+  useGetBatchedTokenDataQuery,
+} = coingeckoApi;

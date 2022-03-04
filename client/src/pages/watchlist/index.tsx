@@ -1,26 +1,50 @@
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { supabase } from "../../lib/supabaseClient";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
 import AssetTile from "../../components/AssetTile";
 import { useGetWatchlistQuery } from "../../services/folio";
+import {
+  useGetPricesQuery,
+  useGetBatchedTokenDataQuery,
+} from "../../services/coingecko";
+import { TokenPrices } from "../../types";
 
 const Watchlist: NextPage = () => {
-  const router = useRouter();
   const user = supabase.auth.user();
-  const { data, error, isLoading } = useGetWatchlistQuery(user?.id!);
-  if (data) console.log(data);
+  const [skip, setSkip] = useState<boolean>(true);
+  const [tokenIds, setTokenIds] = useState<string[]>([]);
+  const watchlist = useGetWatchlistQuery(user?.id!);
+  const prices = useGetBatchedTokenDataQuery(tokenIds, { skip });
+
+  useEffect(() => {
+    if (watchlist.data) {
+      watchlist.data.map((token) =>
+        setTokenIds((prev) => [...prev, token.token_id])
+      );
+      setSkip(false);
+    }
+  }, [watchlist]);
+
   return (
     <DashboardLayout>
-      {isLoading ? (
+      {watchlist.isLoading ? (
         <p>Loading...</p>
-      ) : data?.length ? (
-        data.map((item) => (
-          <AssetTile type="watchlist" data={item} key={item.id} />
-        ))
+      ) : watchlist.data?.length && prices.data ? (
+        watchlist.data.map((item) => {
+          return (
+            <AssetTile
+              type="watchlist"
+              data={item}
+              price={prices.data![item.token_id]}
+              key={item.id}
+            />
+          );
+        })
       ) : (
         <div className="flex flex-row justify-center my-32">
-          <p>You watchlist is empty, try adding something</p>
+          <p>Your watchlist is empty, try adding something</p>
         </div>
       )}
     </DashboardLayout>
