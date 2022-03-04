@@ -6,7 +6,7 @@ import React, {
   useEffect,
   createContext,
 } from "react";
-import { supabase } from "../utils/supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 import { UserCredentials, Session, User } from "@supabase/supabase-js";
 import { AuthContextState } from "../types";
 
