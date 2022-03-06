@@ -24,8 +24,19 @@ export const folioApi = createApi({
       }),
       invalidatesTags: ["Watchlist"],
     }),
+    addWatchlistItem: builder.mutation<WatchlistResponse, WatchlistItem>({
+      query: (body) => ({
+        url: `/watchlist`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Watchlist"],
+    }),
   }),
 });
 
-export const { useGetWatchlistQuery, useDeleteWatchlistItemMutation } =
-  folioApi;
+export const {
+  useGetWatchlistQuery,
+  useDeleteWatchlistItemMutation,
+  useAddWatchlistItemMutation,
+} = folioApi;

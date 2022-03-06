@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { AssetTileProps } from "../../types";
+import { WatchlistTileProps } from "../../types";
 import { useRouter } from "next/router";
 import { useDeleteWatchlistItemMutation } from "../../services/folio";
 import {
@@ -7,7 +7,7 @@ import {
   formatPercentChangeDigits,
 } from "../../helpers/priceFormatting";
 
-const AssetTile = ({ data, type, price }: AssetTileProps): ReactElement => {
+const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   const router = useRouter();
   const [deleteWatchlistItem, results] = useDeleteWatchlistItemMutation();
   async function deleteItem(itemId: number) {
@@ -71,4 +71,4 @@ const AssetTile = ({ data, type, price }: AssetTileProps): ReactElement => {
   );
 };
 
-export default AssetTile;
+export default WatchlistTile;
