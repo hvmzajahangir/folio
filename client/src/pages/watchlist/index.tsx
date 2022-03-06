@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { supabase } from "../../lib/supabaseClient";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
-import AssetTile from "../../components/AssetTile";
+import WatchlistTile from "../../components/WatchlistTile";
 import { useGetWatchlistQuery } from "../../services/folio";
 import {
   useGetPricesQuery,
@@ -34,8 +34,7 @@ const Watchlist: NextPage = () => {
       ) : watchlist.data?.length && prices.data ? (
         watchlist.data.map((item) => {
           return (
-            <AssetTile
-              type="watchlist"
+            <WatchlistTile
               data={item}
               price={prices.data![item.token_id]}
               key={item.id}

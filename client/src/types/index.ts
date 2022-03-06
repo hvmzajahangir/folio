@@ -63,6 +63,7 @@ export interface TokenData {
 // Search
 export interface SearchResultsProps {
   results: [SearchResult] | undefined;
+  searchTerms: string;
 }
 
 export interface SearchResultTileProps {
@@ -73,8 +74,7 @@ export interface AssetOverviewProps {
   data: TokenData | undefined;
 }
 
-export interface AssetTileProps {
-  type: string;
+export interface WatchlistTileProps {
   data: WatchlistItem;
   price: BatchedTokenDataItem;
 }
