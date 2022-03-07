@@ -9,7 +9,7 @@ import {
 
 const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   const router = useRouter();
-  const [deleteWatchlistItem, results] = useDeleteWatchlistItemMutation();
+  const [deleteWatchlistItem] = useDeleteWatchlistItemMutation();
   async function deleteItem(itemId: number) {
     await deleteWatchlistItem(itemId);
   }
