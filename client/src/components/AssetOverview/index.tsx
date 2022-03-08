@@ -1,5 +1,7 @@
 import { ReactElement, useState } from "react";
 import { AssetOverviewProps, WatchlistItem } from "../../types";
+import AddTradeModal from "./AddTradeModal";
+import TradesList from "./TradesList";
 import {
   useGetWatchlistQuery,
   useAddWatchlistItemMutation,
@@ -11,19 +13,30 @@ import {
   formatPercentChangeDigits,
 } from "../../helpers/priceFormatting";
 
-const AssetOverview = ({ data }: AssetOverviewProps): ReactElement => {
+const AssetOverview = ({
+  data,
+  tokenTrades,
+}: AssetOverviewProps): ReactElement => {
   const { user } = useAuth();
+  const [showModal, setShowModal] = useState(false);
   return data ? (
     <div className="flex flex-col mt-6">
       <div className="self-end">
         <button
           type="button"
-          onClick={() => console.log(1)}
+          onClick={() => setShowModal(true)}
           className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
         >
           Add Trade
         </button>
       </div>
+      {showModal && (
+        <AddTradeModal
+          setShowModal={setShowModal}
+          data={data}
+          tokenTrades={tokenTrades}
+        />
+      )}
       <div className="shadow-lg my-6 px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
         <div className="flex flex-row justify-between">
           <div>
@@ -52,7 +65,7 @@ const AssetOverview = ({ data }: AssetOverviewProps): ReactElement => {
           </div>
         </div>
       </div>
-      <div className="shadow-lg px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
+      {/* <div className="shadow-lg px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
         <div className="dark:text-white">
           <div className="flex items-center pb-2 mb-8 text-m">
             <p className="text-m text-gray-700 dark:text-white">
@@ -66,12 +79,14 @@ const AssetOverview = ({ data }: AssetOverviewProps): ReactElement => {
             </div>
           </div>
         </div>
+      </div> */}
+      <div className="shadow-lg px-4 py-6 w-full relative">
+        <h1 className="text-lg font-semibold mt-4 mb-12">Your Trades</h1>
+        <TradesList tokenTrades={tokenTrades} />
       </div>
     </div>
   ) : (
-    <p className="my-6">
-      Ooops, cannot find information on this assetOverview...
-    </p>
+    <p className="my-6">Ooops, cannot find information on this token...</p>
   );
 };
 

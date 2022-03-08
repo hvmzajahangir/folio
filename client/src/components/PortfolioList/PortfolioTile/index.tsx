@@ -1,20 +1,20 @@
 import { ReactElement } from "react";
-import { WatchlistTileProps } from "../../types";
+import { WatchlistTileProps } from "../../../types";
 import { useRouter } from "next/router";
-import { useDeleteWatchlistItemMutation } from "../../services/folio";
+import { useDeleteWatchlistItemMutation } from "../../../services/folio";
 import {
   formatNumberDigits,
   formatPercentChangeDigits,
-} from "../../helpers/priceFormatting";
+} from "../../../helpers/priceFormatting";
 
-const PortfolioTile = ({ data, price }: WatchlistTileProps): ReactElement => {
-  const router = useRouter();
-  const [deleteWatchlistItem, results] = useDeleteWatchlistItemMutation();
-  async function deleteItem(itemId: number) {
-    await deleteWatchlistItem(itemId);
-  }
+const PortfolioTile = (): ReactElement => {
+  // const router = useRouter();
+  // const [deleteWatchlistItem, result] = useDeleteWatchlistItemMutation();
+  // async function deleteItem(itemId: number) {
+  //   await deleteWatchlistItem(itemId);
+  // }
   return (
-    <div className="shadow-lg my-6 px-4 pb-6 pt-2 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative">
+    <div className="shadow-lg my-4 px-4 pb-6 pt-2 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative">
       <div className="relative flex flex-row justify-end group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ const PortfolioTile = ({ data, price }: WatchlistTileProps): ReactElement => {
           <span className="relative p-2 leading-none whitespace-no-wrap bg-white rounded">
             <p
               className="text-sm font-bold text-rose-500/75 hover:text-rose-500 cursor-pointer"
-              onClick={() => deleteItem(data.id!)}
+              onClick={() => 1}
             >
               Remove
             </p>
@@ -44,18 +44,18 @@ const PortfolioTile = ({ data, price }: WatchlistTileProps): ReactElement => {
       <div className="flex flex-row justify-between items-center">
         <div>
           <p className="text-2xl text-gray-700 dark:text-white font-semibold">
-            {price.symbol.toUpperCase()}
+            {/* {price.symbol.toUpperCase()} */}
           </p>
           <p className="text-xl text-gray-700 font-thin dark:text-white">
-            {price.name}
+            {/* {price.name} */}
           </p>
         </div>
         <div className="flex justify-end pace-x-2 items-center">
           <p className="text-2xl text-black dark:text-white font-bold">
-            ${formatNumberDigits(price.currentPrice, 2)}
+            {/* ${formatNumberDigits(price.currentPrice, 2)} */}
           </p>
           <span className="flex items-center ml-4">
-            <p
+            {/* <p
               className={`p-1 text-xs font-bold ${
                 price.priceChangePercentage24h > 0
                   ? `bg-emerald-400/75`
@@ -63,7 +63,7 @@ const PortfolioTile = ({ data, price }: WatchlistTileProps): ReactElement => {
               } rounded`}
             >
               {formatPercentChangeDigits(price.priceChangePercentage24h, 2)}%
-            </p>
+            </p> */}
           </span>
         </div>
       </div>

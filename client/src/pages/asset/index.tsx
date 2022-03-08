@@ -1,16 +1,35 @@
 import type { NextPage } from "next";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
 import AssetOverview from "../../components/AssetOverview";
 import { useGetTokenDataQuery } from "../../services/coingecko";
+import { useGetPortfolioQuery } from "../../services/folio";
+import { useAuth } from "../../context/Auth";
+import { Trade } from "../../types";
 
 const Asset: NextPage = () => {
   const router = useRouter();
-  const id: string = router.query.id as string;
-  const { data, error, isLoading } = useGetTokenDataQuery(id);
+  const tokenId: string = router.query.id as string;
+  const { user } = useAuth();
+  const { data: token, isLoading: tokenIsLoading } =
+    useGetTokenDataQuery(tokenId);
+  const { data: portfolio, isLoading: portfolioIsLoading } =
+    useGetPortfolioQuery(user?.id!);
+  const [tokenTrades, setTokenTrades] = useState<Trade[]>([]);
+
+  useEffect(() => {
+    if (!portfolioIsLoading && portfolio) {
+      const trades: Trade[] = portfolio.filter(
+        (trade) => trade.token_id === tokenId
+      );
+      setTokenTrades(trades);
+    }
+  }, [portfolio]);
+
   return (
     <DashboardLayout>
-      {isLoading ? (
+      {tokenIsLoading ? (
         <div className="flex flex-row justify-center my-32">
           <svg
             role="status"
@@ -30,7 +49,7 @@ const Asset: NextPage = () => {
           </svg>
         </div>
       ) : (
-        data && <AssetOverview data={data} />
+        token && <AssetOverview data={token} tokenTrades={tokenTrades} />
       )}
     </DashboardLayout>
   );
