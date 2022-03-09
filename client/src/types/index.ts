@@ -72,6 +72,7 @@ export interface SearchResultTileProps {
 
 export interface AssetOverviewProps {
   data: TokenData | undefined;
+  tokenTrades: Trade[];
 }
 
 export interface WatchlistTileProps {
@@ -143,4 +144,66 @@ export interface BatchedTokenDataItem {
 }
 export interface BatchedTokenData {
   [key: string]: BatchedTokenDataItem;
+}
+
+export interface TradeRequestBody {
+  user_id: string;
+  token_id: string;
+  execution_quantity: number;
+  execution_price: number;
+  execution_total: number;
+  trade_type: string;
+}
+
+export interface Trade {
+  id: string;
+  user_id: string;
+  token_id: string;
+  execution_quantity: number;
+  execution_price: number;
+  execution_total: number;
+  trade_type: string;
+  created_at: string;
+}
+
+export interface TradeBody {
+  user_id: string;
+  token_id: string;
+  execution_quantity: number;
+  execution_price: number;
+  execution_total: number;
+  trade_type: string;
+}
+
+export type TradeResponse = {
+  status: string;
+  result: Trade | [Trade] | null;
+};
+
+export type GetPortfolioResponse = Trade[];
+export interface AddTradeModalProps {
+  setShowModal: Function;
+  data: TokenData;
+  tokenTrades: Trade[];
+}
+
+export interface TradesListProps {
+  tokenTrades: Trade[];
+}
+
+export interface TradeRowProps {
+  trade: Trade;
+}
+
+export interface PortfolioSummary {
+  [key: string]: number;
+}
+export interface PortfolioListProps {
+  portfolioSummary: PortfolioSummary;
+  batchedTokenData: BatchedTokenData;
+}
+
+export interface PortfolioTileProps {
+  quantity: number;
+  tokenData: BatchedTokenDataItem;
 }

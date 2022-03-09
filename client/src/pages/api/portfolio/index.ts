@@ -23,7 +23,7 @@ async function addToPortfolio(req: NextApiRequest, res: NextApiResponse<Data>) {
       token_id,
       execution_price,
       execution_quantity,
-      execution_total_cost,
+      execution_total,
       trade_type,
     }: TradeRequestBody = req.body;
     const data = await supabase
@@ -34,7 +34,7 @@ async function addToPortfolio(req: NextApiRequest, res: NextApiResponse<Data>) {
           token_id,
           execution_price,
           execution_quantity,
-          execution_total_cost,
+          execution_total,
           trade_type,
         },
       ])

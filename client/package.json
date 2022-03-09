@@ -8,11 +8,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^1.7.2",
     "@supabase/supabase-js": "^1.30.0",
     "@tailwindcss/forms": "^0.4.0",
     "@types/react-transition-group": "^4.4.4",
     "cors": "^2.8.5",
+    "currency.js": "^2.0.4",
+    "moment": "^2.29.1",
     "next": "^12.0.9",
     "next-themes": "^0.0.15",
     "react": "17.0.2",
