@@ -1,16 +1,43 @@
 import type { NextPage } from "next";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
 import AssetOverview from "../../components/AssetOverview";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import { useGetTokenDataQuery } from "../../services/coingecko";
+import { useGetPortfolioQuery } from "../../services/folio";
+import { useAuth } from "../../context/Auth";
+import { Trade } from "../../types";
 
 const Asset: NextPage = () => {
+  const { user } = useAuth();
   const router = useRouter();
-  const id: string = router.query.id as string;
-  const { data, error, isLoading } = useGetTokenDataQuery(id);
+  const tokenId: string = router.query.id as string;
+  const [tokenTrades, setTokenTrades] = useState<Trade[]>([]);
+
+  const { data: token, isLoading: tokenIsLoading } =
+    useGetTokenDataQuery(tokenId);
+  const { data: portfolio, isLoading: portfolioIsLoading } =
+    useGetPortfolioQuery(user?.id!);
+
+  useEffect(() => {
+    if (!portfolioIsLoading && portfolio) {
+      const trades: Trade[] = portfolio.filter(
+        (trade) => trade.token_id === tokenId
+      );
+      setTokenTrades(trades);
+    }
+  }, [portfolio]);
+
   return (
     <DashboardLayout>
-      {isLoading ? <p>Loading...</p> : data && <AssetOverview data={data} />}
+      {tokenIsLoading ? (
+        <div className="flex flex-row justify-center my-32">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        token && <AssetOverview data={token} tokenTrades={tokenTrades} />
+      )}
     </DashboardLayout>
   );
 };

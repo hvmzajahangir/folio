@@ -1,11 +1,8 @@
 import { ReactElement, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "../../../../hooks/rtk";
-import { setSearchTerms as setSliceSearchTerms } from "../../../../slices/searchSlice";
 
 const Search = (): ReactElement => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const [searchTerms, setSearchTerms] = useState<string>("");
   const [searchPlaceholder, setSearchPlaceholder] =
     useState<string>("Search token");
@@ -15,11 +12,13 @@ const Search = (): ReactElement => {
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Search term must be at least two characters and contain alphabetical characters
-    if (searchTerms.length > 1 && !Number(searchTerms)) {
-      dispatch(setSliceSearchTerms(searchTerms));
+    if (searchTerms.trim().length > 1 && !Number(searchTerms)) {
+      router.push({
+        pathname: "/search",
+        query: { query: searchTerms.trim() },
+      });
       setSearchTerms("");
       setSearchPlaceholder("Search token");
-      router.push("/search");
     } else {
       setSearchTerms("");
       setSearchPlaceholder(
