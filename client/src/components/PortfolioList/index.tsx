@@ -1,17 +1,20 @@
-import { ReactElement } from "react";
+import { ReactElement, Fragment } from "react";
 import PortfolioTile from "./PortfolioTile";
+import { PortfolioListProps } from "../../types";
 
-export default function PortfolioList(): ReactElement {
-  return (
-    <div className="overflow-auto relative flex flex-col">
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-      <PortfolioTile />
-    </div>
-  );
+export default function PortfolioList({
+  portfolioSummary,
+  batchedTokenData,
+}: PortfolioListProps): ReactElement {
+  const list: ReactElement[] = [];
+  for (const key in portfolioSummary) {
+    list.push(
+      <PortfolioTile
+        key={key}
+        tokenData={batchedTokenData[key]}
+        quantity={portfolioSummary[key]}
+      />
+    );
+  }
+  return <Fragment>{list.length && list}</Fragment>;
 }

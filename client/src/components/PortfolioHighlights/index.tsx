@@ -1,7 +1,11 @@
 import { ReactElement } from "react";
 import { ChildrenProps } from "../../types";
 
-const PortfolioHighlights = ({ children }: ChildrenProps): ReactElement => {
+const PortfolioHighlights = ({
+  portfolioValue,
+}: {
+  portfolioValue: string;
+}): ReactElement => {
   return (
     // Structuring as a grid to allow displaying further stats in the future
     <div className="grid gap-6 my-8 md:grid-cols-2 xl:grid-cols-1">
@@ -20,7 +24,7 @@ const PortfolioHighlights = ({ children }: ChildrenProps): ReactElement => {
             Portfolio balance
           </p>
           <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-            $ 46,760.89
+            {portfolioValue}
           </p>
         </div>
       </div>

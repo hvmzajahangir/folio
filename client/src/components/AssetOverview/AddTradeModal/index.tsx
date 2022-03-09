@@ -4,7 +4,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { AddTradeModalProps, Trade } from "../../../types";
 import { useAuth } from "../../../context/Auth";
 import { useAddTradeMutation } from "../../../services/folio";
-import { calculateExecutionTotal } from "../../../helpers/moneyCalculations";
+import { multiplyQuantityAndPrice } from "../../../helpers/moneyCalculations";
 
 const tradeType = ["Buy", "Sell"];
 
@@ -43,7 +43,7 @@ const AddTradeModal = ({
           token_id: data.id,
           execution_quantity: executionQuantity!,
           execution_price: executionPrice,
-          execution_total: calculateExecutionTotal(
+          execution_total: multiplyQuantityAndPrice(
             executionQuantity!,
             executionPrice
           ),

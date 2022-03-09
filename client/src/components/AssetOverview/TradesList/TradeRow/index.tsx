@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { TradeRowProps } from "../../../../types";
 import { useDeleteTradeMutation } from "../../../../services/folio";
 import { formatDateString } from "../../../../helpers/dateFormatting";
-import { formatExecutionTotal } from "../../../../helpers/moneyCalculations";
+import { formatMoney } from "../../../../helpers/moneyCalculations";
 
 export default function TradeRow({ trade }: TradeRowProps): ReactElement {
   const [deleteTrade] = useDeleteTradeMutation();
@@ -15,8 +15,7 @@ export default function TradeRow({ trade }: TradeRowProps): ReactElement {
         {trade.trade_type.toUpperCase()}
       </td>
       <td className="border-b border-slate-700 p-4 pl-8 text-slate-400">
-        {trade.execution_quantity} @{" "}
-        {formatExecutionTotal(trade.execution_total)}
+        {trade.execution_quantity} @ {formatMoney(trade.execution_total)}
       </td>
       <td className="border-b border-slate-700 text-red-500">
         <button onClick={() => deleteTrade(trade.id)}>Delete</button>

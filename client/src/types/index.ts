@@ -194,3 +194,16 @@ export interface TradesListProps {
 export interface TradeRowProps {
   trade: Trade;
 }
+
+export interface PortfolioSummary {
+  [key: string]: number;
+}
+export interface PortfolioListProps {
+  portfolioSummary: PortfolioSummary;
+  batchedTokenData: BatchedTokenData;
+}
+
+export interface PortfolioTileProps {
+  quantity: number;
+  tokenData: BatchedTokenDataItem;
+}

@@ -13,8 +13,17 @@ const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   async function deleteItem(itemId: number) {
     await deleteWatchlistItem(itemId);
   }
+  const handleOnClick = (id: string) => {
+    router.push({
+      pathname: "/asset",
+      query: { id },
+    });
+  };
   return (
-    <div className="shadow-lg my-6 px-4 pb-6 pt-2 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative">
+    <div
+      className="shadow-lg my-6 px-4 pb-6 pt-2 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative cursor-pointer"
+      onClick={() => handleOnClick(data.token_id)}
+    >
       <div className="relative flex flex-row justify-end group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
