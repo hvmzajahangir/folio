@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
-import AssetOverview from "../../components/AssetOverview";
+import TokenOverview from "../../components/TokenOverview";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useGetTokenDataQuery } from "../../services/coingecko";
 import { useGetPortfolioQuery } from "../../services/folio";
@@ -36,7 +36,7 @@ const Asset: NextPage = () => {
           <LoadingSpinner />
         </div>
       ) : (
-        token && <AssetOverview data={token} tokenTrades={tokenTrades} />
+        token && <TokenOverview data={token} tokenTrades={tokenTrades} />
       )}
     </DashboardLayout>
   );

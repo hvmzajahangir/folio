@@ -1,5 +1,5 @@
-import { ReactElement, useState } from "react";
-import { AssetOverviewProps, WatchlistItem } from "../../types";
+import { ReactElement, useState, useEffect } from "react";
+import { TokenOverviewProps, WatchlistItem } from "../../types";
 import AddTradeModal from "./AddTradeModal";
 import TradesList from "./TradesList";
 import {
@@ -13,19 +13,71 @@ import {
   formatPercentChangeDigits,
 } from "../../helpers/priceFormatting";
 
-const AssetOverview = ({
+const TokenOverview = ({
   data,
   tokenTrades,
-}: AssetOverviewProps): ReactElement => {
+}: TokenOverviewProps): ReactElement => {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
+
+  // Check if this token is already part of the user's watchlist
+  const [watchlistStatus, setWatchlistStatus] = useState<string>("Loading...");
+  const [watchlistOnClick, setWatchlistOnClick] = useState<string>("loading");
+  const [watchlistItemId, setWatchlistItemId] = useState<number | undefined>();
+  const { data: watchlist, isLoading: isWatchlistLoading } =
+    useGetWatchlistQuery(user?.id!);
+  const [deleteWatchlistItem] = useDeleteWatchlistItemMutation();
+  const [addWatchlistItem] = useAddWatchlistItemMutation();
+
+  useEffect(() => {
+    if (isWatchlistLoading) setWatchlistStatus("Loading...");
+    if (!isWatchlistLoading) {
+      const watchlistItem: WatchlistItem | undefined = watchlist?.length
+        ? watchlist.find((item) => item.token_id === data?.id)
+        : undefined;
+      setWatchlistItemId(watchlistItem?.id);
+      if (watchlistItem) {
+        setWatchlistStatus("Remove from Watchlist");
+        setWatchlistOnClick("delete");
+      } else {
+        setWatchlistStatus("Add to Watchlist");
+        setWatchlistOnClick("add");
+      }
+    }
+  }, [watchlist]);
+
+  function deleteFromWatchlist() {
+    deleteWatchlistItem(watchlistItemId!);
+  }
+
+  function addToWatchlist() {
+    addWatchlistItem({ user_id: user?.id!, token_id: data?.id! });
+  }
+
   return data ? (
     <div className="flex flex-col mt-6">
       <div className="self-end">
         <button
+          className="relative inline-flex items-center justify-center p-0.5 s mr-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:ring-blue-800"
+          onClick={() => {
+            if (watchlistOnClick === "add") addToWatchlist();
+            if (watchlistOnClick === "delete") deleteFromWatchlist();
+          }}
+        >
+          <span
+            className={`relative px-5 py-2 transition-all ease-in duration-75 bg-gray-900 rounded-md ${
+              watchlistOnClick === "delete"
+                ? "bg-opacity-0"
+                : "group-hover:bg-opacity-0"
+            }`}
+          >
+            {watchlistStatus}
+          </span>
+        </button>
+        <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
         >
           Add Trade
         </button>
@@ -90,4 +142,4 @@ const AssetOverview = ({
   );
 };
 
-export default AssetOverview;
+export default TokenOverview;

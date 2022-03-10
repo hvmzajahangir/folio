@@ -70,7 +70,7 @@ export interface SearchResultTileProps {
   result: SearchResult;
 }
 
-export interface AssetOverviewProps {
+export interface TokenOverviewProps {
   data: TokenData | undefined;
   tokenTrades: Trade[];
 }
