@@ -15,7 +15,7 @@ const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   }
   const handleOnClick = (id: string) => {
     router.push({
-      pathname: "/asset",
+      pathname: "/token",
       query: { id },
     });
   };
