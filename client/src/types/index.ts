@@ -9,10 +9,6 @@ export interface Profile {
   updated_at: Date;
 }
 
-export interface AccountProps {
-  session: Session;
-}
-
 export interface AuthContextState {
   signIn: Function;
   signOut: Function;
