@@ -34,8 +34,7 @@ const Dashboard: NextPage = () => {
         if (!tokenList.has(trade.token_id)) tokenList.add(trade.token_id);
         if (trade.trade_type === "Buy") {
           addOrSubtract = trade.execution_quantity;
-        }
-        if (trade.trade_type === "Sell") {
+        } else if (trade.trade_type === "Sell") {
           addOrSubtract = -trade.execution_quantity;
         }
         result[trade.token_id] = (result[trade.token_id] || 0) + addOrSubtract;
@@ -46,7 +45,6 @@ const Dashboard: NextPage = () => {
         setSkip(false);
       }
 
-      // Calculate portfolio value
       if (!isBatchedTokenDataLoading && batchedTokenData) {
         let currentPortfolioValue = 0;
         let currentTokenHoldingsValue: number = 0;

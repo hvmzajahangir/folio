@@ -8,7 +8,7 @@ const PortfolioHighlights = ({
 }): ReactElement => {
   return (
     // Structuring as a grid to allow displaying further stats in the future
-    <div className="grid gap-6 my-8 md:grid-cols-1 xl:grid-cols-1">
+    <div className="grid gap-6 my-8 md:grid-cols-2 xl:grid-cols-1">
       <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
