@@ -1,14 +1,5 @@
-import { Session, User } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js";
 import { ReactNode } from "react";
-
-export interface Profile {
-  id: string | null;
-  username: string | null;
-  website: string | null;
-  avatar_url: string | null;
-  updated_at: Date;
-}
-
 export interface AuthContextState {
   signIn: Function;
   signOut: Function;
