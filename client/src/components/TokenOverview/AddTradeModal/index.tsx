@@ -106,7 +106,7 @@ const AddTradeModal = ({
               />
               {alertMessage && (
                 <div className="mb-4">
-                  <Alert message={alertMessage} />
+                  <Alert alertType="warning" alertMessage={alertMessage} />
                 </div>
               )}
               <Listbox
