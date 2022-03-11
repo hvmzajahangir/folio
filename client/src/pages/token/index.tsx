@@ -2,14 +2,14 @@ import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../components/DashboardLayout";
-import AssetOverview from "../../components/AssetOverview";
+import TokenOverview from "../../components/TokenOverview";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useGetTokenDataQuery } from "../../services/coingecko";
 import { useGetPortfolioQuery } from "../../services/folio";
 import { useAuth } from "../../context/Auth";
 import { Trade } from "../../types";
 
-const Asset: NextPage = () => {
+const Token: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
   const tokenId: string = router.query.id as string;
@@ -36,10 +36,10 @@ const Asset: NextPage = () => {
           <LoadingSpinner />
         </div>
       ) : (
-        token && <AssetOverview data={token} tokenTrades={tokenTrades} />
+        token && <TokenOverview data={token} tokenTrades={tokenTrades} />
       )}
     </DashboardLayout>
   );
 };
 
-export default Asset;
+export default Token;

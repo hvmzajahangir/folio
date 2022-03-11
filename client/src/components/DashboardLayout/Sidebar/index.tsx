@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import logo from "../../../../public/image/logo.png";
 
 const Sidebar = (): ReactElement => {
   const router = useRouter();
@@ -13,13 +15,20 @@ const Sidebar = (): ReactElement => {
     "inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200";
   return (
     <aside className="z-20 hidden w-64 overflow-y-auto bg-gradient-to-r from-gray-800 via-gray-900 to-black md:block flex-shrink-0">
-      <div className="py-4 text-gray-500 dark:text-gray-400">
-        <a
-          className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-          href="#"
+      <div className="text-gray-400">
+        <div
+          className="relative mt-3 pl-2 pr-12 text-lg font-bold text-gray-200 cursor-pointer"
+          onClick={() => {
+            pushToRoute("/dashboard");
+          }}
         >
-          Folio
-        </a>
+          <Image
+            src={logo}
+            alt="folio logo"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
         <ul className="mt-6">
           <li
             className="relative px-6 py-3 cursor-pointer"

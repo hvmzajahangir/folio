@@ -10,7 +10,7 @@ import { store } from "../store";
 function MyApp({ Component, pageProps }: AppProps) {
   const protectedRoutes: Array<string> = [
     "/dashboard",
-    "/asset",
+    "/token",
     "/search",
     "/watchlist",
   ];
