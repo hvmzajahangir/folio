@@ -212,3 +212,7 @@ export interface PortfolioTileProps {
   quantity: number;
   tokenData: BatchedTokenDataItem;
 }
+
+export interface AlertProps {
+  message: string;
+}

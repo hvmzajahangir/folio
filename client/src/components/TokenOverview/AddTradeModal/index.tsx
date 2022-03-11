@@ -5,6 +5,7 @@ import { AddTradeModalProps, Trade } from "../../../types";
 import { useAuth } from "../../../context/Auth";
 import { useAddTradeMutation } from "../../../services/folio";
 import { multiplyQuantityAndPrice } from "../../../helpers/moneyCalculations";
+import Alert from "../../Alert";
 
 const tradeType = ["Buy", "Sell"];
 
@@ -17,41 +18,39 @@ const AddTradeModal = ({
   const [tradeTypeSelection, setTradeTypeSelection] = useState<string>(
     tradeType[0]
   );
-  const [executionQuantity, setExecutionQuantity] = useState<number>(0);
-  const [executionPrice, setExecutionPrice] = useState<number>(
+  const [executionQuantity, setExecutionQuantity] = useState<string>("");
+  const [executionPrice, setExecutionPrice] = useState<string>(
     data.market_data.current_price.usd
   );
+  const [alertMessage, setAlertMessage] = useState<string>("");
 
   const [addTrade] = useAddTradeMutation();
 
   const handleAddTrade = async () => {
+    const quantity = Number(executionQuantity);
+    const price = Number(executionPrice);
     const totalOwnedTokenQuantity =
       calculateTotalOwnedTokenQuantity(tokenTrades);
     const isValidQuantity: boolean =
-      typeof executionQuantity === "number" && executionQuantity > 0;
-    const isValidPrice: boolean =
-      typeof executionPrice === "number" && executionPrice > 0;
+      typeof quantity === "number" && quantity > 0;
+    const isValidPrice: boolean = typeof price === "number" && price > 0;
     if (isValidQuantity && isValidPrice) {
-      if (
-        tradeTypeSelection === "Sell" &&
-        executionQuantity > totalOwnedTokenQuantity
-      )
-        console.log("invalid");
+      if (tradeTypeSelection === "Sell" && quantity > totalOwnedTokenQuantity)
+        setAlertMessage(
+          `You're trying to sell more than you currently own (${totalOwnedTokenQuantity} ${data.symbol.toUpperCase()}).`
+        );
       else {
         addTrade({
           user_id: user?.id!,
           token_id: data.id,
-          execution_quantity: executionQuantity!,
-          execution_price: executionPrice,
-          execution_total: multiplyQuantityAndPrice(
-            executionQuantity!,
-            executionPrice
-          ),
+          execution_quantity: quantity,
+          execution_price: price,
+          execution_total: multiplyQuantityAndPrice(quantity, price),
           trade_type: tradeTypeSelection,
         });
         setShowModal(false);
       }
-    }
+    } else setAlertMessage(`Please enter a valid quantity and price.`);
   };
 
   const calculateTotalOwnedTokenQuantity = (tokenTrades: Trade[]): number => {
@@ -90,26 +89,31 @@ const AddTradeModal = ({
               <label>Quantity ({data.symbol.toUpperCase()})</label>
               <input
                 className="mt-4 mb-6 w-full rounded bg-gray-500 hover:bg-gray-600 placeholder-slate-200 text-slate-200"
-                type="number"
+                type="text"
                 value={executionQuantity}
-                onChange={(e) => setExecutionQuantity(Number(e.target.value))}
+                onChange={(e) => setExecutionQuantity(e.target.value)}
                 placeholder="Enter quantity"
                 autoComplete="off"
               />
               <label>Price ($)</label>
               <input
-                className="my-4 mb-6 w-full rounded bg-gray-500 hover:bg-gray-600 placeholder-slate-200 text-slate-200"
-                type="number"
+                className="mt-4 mb-4 w-full rounded bg-gray-500 hover:bg-gray-600 placeholder-slate-200 text-slate-200"
+                type="text"
                 value={executionPrice}
-                onChange={(e) => setExecutionPrice(Number(e.target.value))}
+                onChange={(e) => setExecutionPrice(e.target.value)}
                 placeholder="Enter price in USD"
                 autoComplete="off"
               />
+              {alertMessage && (
+                <div className="mb-4">
+                  <Alert message={alertMessage} />
+                </div>
+              )}
               <Listbox
                 value={tradeTypeSelection}
                 onChange={setTradeTypeSelection}
               >
-                <div className="relative mt-4">
+                <div className="relative mt-4 mb-4">
                   <Listbox.Button className="relative w-full py-2.5 pl-3 pr-10 text-left bg-gray-800 rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                     <span className="block truncate">{tradeTypeSelection}</span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
