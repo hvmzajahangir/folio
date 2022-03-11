@@ -21,7 +21,7 @@ const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   };
   return (
     <div
-      className="shadow-lg my-6 px-4 py-4 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative cursor-pointer"
+      className="shadow-lg my-4 px-4 py-4 w-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 rounded-lg relative cursor-pointer"
       onClick={() => handleOnClick(data.token_id)}
     >
       <div className="flex flex-row justify-between items-center">
