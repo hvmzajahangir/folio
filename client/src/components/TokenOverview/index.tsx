@@ -20,18 +20,24 @@ const TokenOverview = ({
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
-  // Check if this token is already part of the user's watchlist
+  const tokenName: string | undefined = data?.name;
+  const tokenSymbol: string | undefined = data?.symbol;
+  const priceChangePercentage24h: number | undefined =
+    data?.market_data.price_change_percentage_24h_in_currency.usd;
+  const currentPrice: number | undefined = data?.market_data.current_price.usd;
+
   const [watchlistStatus, setWatchlistStatus] = useState<string>("Loading...");
   const [watchlistOnClick, setWatchlistOnClick] = useState<string>("loading");
   const [watchlistItemId, setWatchlistItemId] = useState<number | undefined>();
-  const { data: watchlist, isLoading: isWatchlistLoading } =
+  const { data: watchlist, isFetching: isWatchlistFetching } =
     useGetWatchlistQuery(user?.id!);
   const [deleteWatchlistItem] = useDeleteWatchlistItemMutation();
   const [addWatchlistItem] = useAddWatchlistItemMutation();
 
   useEffect(() => {
-    if (isWatchlistLoading) setWatchlistStatus("Loading...");
-    if (!isWatchlistLoading) {
+    // Check if this token is already part of the user's watchlist
+    if (isWatchlistFetching) setWatchlistStatus("Loading...");
+    if (!isWatchlistFetching) {
       const watchlistItem: WatchlistItem | undefined = watchlist?.length
         ? watchlist.find((item) => item.token_id === data?.id)
         : undefined;
@@ -44,7 +50,7 @@ const TokenOverview = ({
         setWatchlistOnClick("add");
       }
     }
-  }, [watchlist]);
+  }, [watchlist, isWatchlistFetching]);
 
   function deleteFromWatchlist() {
     deleteWatchlistItem(watchlistItemId!);
@@ -89,31 +95,30 @@ const TokenOverview = ({
           tokenTrades={tokenTrades}
         />
       )}
-      <div className="shadow-lg my-6 px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
-        <div className="flex flex-row justify-between">
+      <div className="shadow-lg my-4 py-8 px-4 w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 rounded-lg relative">
+        <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="text-m text-gray-700 dark:text-white font-semibold">
-              {data.name} ({data.symbol.toUpperCase()})
+            <p className="text-2xl text-gray-700 dark:text-white font-semibold">
+              {tokenName} ({tokenSymbol?.toUpperCase()})
             </p>
           </div>
-          <div className="flex justify-end pace-x-2">
-            <p className="text-5xl text-black dark:text-white font-bold">
-              ${formatNumberDigits(data.market_data.current_price.usd, 2)}
+          <div className="flex justify-end pace-x-2 items-center">
+            <p className="text-2xl text-white font-bold">
+              ${currentPrice ? formatNumberDigits(currentPrice, 2) : "-"}
             </p>
-            <span
-              className={`${
-                data.market_data.price_change_percentage_24h_in_currency.usd > 0
-                  ? "text-green-500"
-                  : "text-red-500"
-              } text-xl font-bold flex items-center ml-4`}
-            >
-              (
-              {formatPercentChangeDigits(
-                data.market_data.price_change_percentage_24h_in_currency.usd,
-                2
-              )}
-              )
-            </span>
+            {priceChangePercentage24h && (
+              <span className="flex items-center ml-4">
+                <p
+                  className={`p-1 text-xs font-bold ${
+                    priceChangePercentage24h > 0
+                      ? `bg-emerald-400/75`
+                      : `bg-rose-500/75`
+                  } rounded`}
+                >
+                  {formatPercentChangeDigits(priceChangePercentage24h, 2)}%
+                </p>
+              </span>
+            )}
           </div>
         </div>
       </div>
