@@ -4,12 +4,15 @@ import { useRouter } from "next/router";
 import { useAuth } from "../context/Auth";
 import Image from "next/image";
 import logo from "../../public/image/logo.png";
+import Alert from "../components/Alert";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const { user, signIn } = useAuth();
   const [email, setEmail] = useState<string>("");
+  const [alertType, setAlertType] = useState<string>("");
+  const [alertMessage, setAlertMessage] = useState<string>("");
 
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();
@@ -19,16 +22,18 @@ const Home: NextPage = () => {
       if (error) {
         throw error;
       }
-      alert("Check your email for the login link!");
+      setAlertType("success");
+      setAlertMessage("Check your email for the login link!");
     } catch (error: any) {
-      alert(error.error_description || error.message);
+      setAlertType("warning");
+      setAlertMessage(error.error_description || error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-gradient-to-r from-black to-gray-900 flex items-center justify-center min-h-screen text-white">
+    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-black to-gray-900 min-h-screen text-white">
       <div className="p-12 bg-gradient-to-r from-gray-800 via-gray-900 to-black rounded-lg grid justify-items-center">
         <div className="mb-4 w-full">
           <Image
@@ -62,6 +67,11 @@ const Home: NextPage = () => {
           </div>
         </form>
       </div>
+      {alertMessage && alertType && (
+        <div className="mt-8">
+          <Alert alertType={alertType} alertMessage={alertMessage} />
+        </div>
+      )}
     </div>
   );
 };
