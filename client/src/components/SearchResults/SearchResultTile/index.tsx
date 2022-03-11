@@ -7,9 +7,9 @@ export default function SearchResultTile({
 }: SearchResultTileProps): ReactElement {
   const router = useRouter();
   const handleOnClick = (id: string) => {
-    // Pass id for token overview component in '/token'
+    // Pass id for asset overview component in '/asset'
     router.push({
-      pathname: "/token",
+      pathname: "/asset",
       query: { id },
     });
   };

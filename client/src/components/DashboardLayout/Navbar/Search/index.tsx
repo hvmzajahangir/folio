@@ -48,7 +48,7 @@ const Search = (): ReactElement => {
           </svg>
         </div>
         <input
-          className="w-full pl-8 pr-2 rounded bg-gray-500 hover:bg-gray-600 placeholder-slate-200 text-slate-200 form-input"
+          className="w-full pl-8 pr-2 rounded bg-gray-500 hover:bg-gray-400 placeholder-slate-200 text-slate-200 form-input"
           type="text"
           placeholder={searchPlaceholder}
           aria-label="Search"

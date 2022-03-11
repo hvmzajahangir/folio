@@ -18,9 +18,7 @@ export default function TradesList({
           <th className="border-b border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-200 text-left">
             Execution
           </th>
-          <th className="border-b border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-200 text-left">
-            Total
-          </th>
+          <th className="border-b border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-200 text-left"></th>
         </tr>
       </thead>
       <tbody className="bg-slate-800">
