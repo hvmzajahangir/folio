@@ -180,5 +180,10 @@ export interface PortfolioTileProps {
 }
 
 export interface AlertProps {
-  message: string;
+  alertType: string;
+  alertMessage: string;
+}
+
+export interface AlertTypeClasses {
+  [key: string]: string;
 }
