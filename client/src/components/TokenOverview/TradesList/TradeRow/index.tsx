@@ -9,16 +9,24 @@ export default function TradeRow({ trade }: TradeRowProps): ReactElement {
   return (
     <tr>
       <td className="border-b border-slate-700 p-4 pl-8 text-slate-400">
-        {formatDateString(trade.created_at)}
+        <span>{formatDateString(trade.created_at)}</span>
       </td>
       <td className="border-b border-slate-700 p-4 pl-8 text-slate-400">
-        {trade.trade_type.toUpperCase()}
+        <span>{trade.trade_type.toUpperCase()}</span>
       </td>
       <td className="border-b border-slate-700 p-4 pl-8 text-slate-400">
-        {trade.execution_quantity} @ {formatMoney(trade.execution_total)}
+        <span>
+          {trade.execution_quantity} @ {formatMoney(trade.execution_price)}
+        </span>
       </td>
-      <td className="border-b border-slate-700 text-red-500">
-        <button onClick={() => deleteTrade(trade.id)}>Delete</button>
+      <td className="border-b border-slate-700 p-4 pl-8 text-slate-400">
+        <span>{formatMoney(trade.execution_total)}</span>
+        <button
+          className="ml-12 text-red-500"
+          onClick={() => deleteTrade(trade.id)}
+        >
+          Delete
+        </button>
       </td>
     </tr>
   );

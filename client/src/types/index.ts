@@ -75,11 +75,6 @@ export interface TokenOverviewProps {
   tokenTrades: Trade[];
 }
 
-export interface WatchlistTileProps {
-  data: WatchlistItem;
-  price: BatchedTokenDataItem;
-}
-
 // NEXT API Controllers
 export interface WatchlistItem {
   id?: number;
@@ -187,6 +182,16 @@ export interface AddTradeModalProps {
   tokenTrades: Trade[];
 }
 
+export interface WatchlistProps {
+  watchlist: [WatchlistItem];
+  prices: BatchedTokenData;
+}
+
+export interface WatchlistTileProps {
+  data: WatchlistItem;
+  price: BatchedTokenDataItem;
+}
+
 export interface TradesListProps {
   tokenTrades: Trade[];
 }
@@ -206,4 +211,8 @@ export interface PortfolioListProps {
 export interface PortfolioTileProps {
   quantity: number;
   tokenData: BatchedTokenDataItem;
+}
+
+export interface AlertProps {
+  message: string;
 }

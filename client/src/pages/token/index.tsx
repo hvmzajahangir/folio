@@ -9,7 +9,7 @@ import { useGetPortfolioQuery } from "../../services/folio";
 import { useAuth } from "../../context/Auth";
 import { Trade } from "../../types";
 
-const Asset: NextPage = () => {
+const Token: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
   const tokenId: string = router.query.id as string;
@@ -42,4 +42,4 @@ const Asset: NextPage = () => {
   );
 };
 
-export default Asset;
+export default Token;

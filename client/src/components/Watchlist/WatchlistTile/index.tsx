@@ -1,11 +1,11 @@
 import { ReactElement } from "react";
-import { WatchlistTileProps } from "../../types";
+import { WatchlistTileProps } from "../../../types";
 import { useRouter } from "next/router";
-import { useDeleteWatchlistItemMutation } from "../../services/folio";
+import { useDeleteWatchlistItemMutation } from "../../../services/folio";
 import {
   formatNumberDigits,
   formatPercentChangeDigits,
-} from "../../helpers/priceFormatting";
+} from "../../../helpers/priceFormatting";
 
 const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
   }
   const handleOnClick = (id: string) => {
     router.push({
-      pathname: "/asset",
+      pathname: "/token",
       query: { id },
     });
   };
@@ -35,17 +35,19 @@ const WatchlistTile = ({ data, price }: WatchlistTileProps): ReactElement => {
           <p className="text-2xl text-white font-bold">
             ${formatNumberDigits(price.currentPrice, 2)}
           </p>
-          <span className="flex items-center ml-4">
-            <p
-              className={`p-1 text-xs font-bold ${
-                price.priceChangePercentage24h > 0
-                  ? `bg-emerald-400/75`
-                  : `bg-rose-500/75`
-              } rounded`}
-            >
-              {formatPercentChangeDigits(price.priceChangePercentage24h, 2)}%
-            </p>
-          </span>
+          {price.priceChangePercentage24h && (
+            <span className="flex items-center ml-4">
+              <p
+                className={`p-1 text-xs font-bold ${
+                  price.priceChangePercentage24h > 0
+                    ? `bg-emerald-400/75`
+                    : `bg-rose-500/75`
+                } rounded`}
+              >
+                {formatPercentChangeDigits(price.priceChangePercentage24h, 2)}%
+              </p>
+            </span>
+          )}
         </div>
       </div>
     </div>
