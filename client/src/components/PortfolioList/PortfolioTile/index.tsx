@@ -26,9 +26,7 @@ const PortfolioTile = ({
     >
       <div className="flex flex-row justify-between items-center">
         <div>
-          <p className="text-2xl text-gray-700 dark:text-white font-semibold">
-            {tokenData.name}
-          </p>
+          <p className="text-2xl text-white font-semibold">{tokenData.name}</p>
         </div>
         <div className="flex justify-end pace-x-2 items-center">
           <div className="flex flex-col text-right">

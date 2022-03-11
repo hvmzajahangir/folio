@@ -98,7 +98,7 @@ const TokenOverview = ({
       <div className="shadow-lg my-4 py-8 px-4 w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 rounded-lg relative">
         <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="text-2xl text-gray-700 dark:text-white font-semibold">
+            <p className="text-2xl text-white font-semibold">
               {tokenName} ({tokenSymbol?.toUpperCase()})
             </p>
           </div>
@@ -123,9 +123,9 @@ const TokenOverview = ({
         </div>
       </div>
       {/* <div className="shadow-lg px-4 py-6 w-full bg-gradient-to-b from-gray-700 via-gray-900 to-black rounded-lg relative">
-        <div className="dark:text-white">
+        <div>
           <div className="flex items-center pb-2 mb-8 text-m">
-            <p className="text-m text-gray-700 dark:text-white">
+            <p className="text-m text-white">
               {data.description.en}
             </p>
           </div>

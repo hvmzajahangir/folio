@@ -10,7 +10,7 @@ const Navbar = (): ReactElement => {
   };
   return (
     <header className="z-10 py-4 bg-gradient-to-l from-black via-gray-900 to-black">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-300">
         <button
           className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
           aria-label="Menu"
@@ -46,12 +46,12 @@ const Navbar = (): ReactElement => {
             </button>
             {showOptions && (
               <ul
-                className="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                className="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-300 bg-white border border-gray-700 rounded-md shadow-md bg-gray-700"
                 aria-label="submenu"
               >
                 <li className="flex">
                   <a
-                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer"
+                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200 cursor-pointer"
                     onClick={() => {
                       signOut();
                     }}
