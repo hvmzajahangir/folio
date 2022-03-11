@@ -15,15 +15,15 @@ export default function SearchResultTile({
   };
   return (
     <div
-      className="flex items-center gap-4 p-4 cursor-pointer"
+      className="flex items-center gap-4 p-4 cursor-pointer hover:bg-slate-700"
       onClick={() => handleOnClick(result.id)}
     >
       <img className="w-6 h-6 rounded-full" src={result.large} />
       <div className="flex flex-col">
-        <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
+        <strong className="text-slate-200 text-sm font-medium">
           {result.symbol}
         </strong>
-        <span className="text-slate-500 text-sm font-medium dark:text-slate-400">
+        <span className="text-slate-400 text-sm font-medium">
           {result.name}
         </span>
       </div>
