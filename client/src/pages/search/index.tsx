@@ -25,7 +25,7 @@ const Search: NextPage = () => {
       ) : (
         <Fragment>
           <h1 className="text-lg font-semibold my-4">
-            Search Results for "{searchTerms}"
+            {`Search Results for "${searchTerms}"`}
           </h1>
           <SearchResults results={data} searchTerms={searchTerms} />
         </Fragment>

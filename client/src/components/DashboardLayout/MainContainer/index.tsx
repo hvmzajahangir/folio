@@ -7,7 +7,7 @@ const MainContainer = ({ children }: ChildrenProps): ReactElement => {
   return (
     <div className="flex flex-col flex-1 w-full">
       <Navbar />
-      <MainSection children={children} />
+      <MainSection>{children}</MainSection>
     </div>
   );
 };

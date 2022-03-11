@@ -7,7 +7,7 @@ const DashboardLayout = ({ children }: ChildrenProps): ReactElement => {
   return (
     <div className="flex h-screen bg-gradient-to-t from-black to-gray-900 text-white">
       <Sidebar />
-      <MainContainer children={children} />
+      <MainContainer>{children}</MainContainer>
     </div>
   );
 };
