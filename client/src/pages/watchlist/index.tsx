@@ -40,7 +40,11 @@ const Watchlist: NextPage = () => {
     );
   }
   if (!isWatchlistFetching && !isPricesFetching && watchlist && prices)
-    list = <List watchlist={watchlist} prices={prices} />;
+    list = (
+      <div className="mt-4">
+        <List watchlist={watchlist} prices={prices} />
+      </div>
+    );
 
   return <DashboardLayout>{list}</DashboardLayout>;
 };
