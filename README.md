@@ -44,3 +44,9 @@ docker run -p 3000:3000 nextjs-docker
 Wohoo! You're done 🎉
 
 Visit http://localhost:3000 to start playing with the app.
+
+![Dashboard](./assets/images/dashboard.png)
+
+![Token Overview](./assets/images/token-overview.png)
+
+![Track Trade](./assets/images/track-trade.png)
